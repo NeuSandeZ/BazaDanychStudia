@@ -484,7 +484,8 @@ SELECT * FROM Serwis
 
 
 -- KONIEC (OLLO)
-----OK------
+
+
 -- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje o naszych samochodach zaklasyfikowanych jako ciężarowe.
 CREATE TABLE Ciezarowe(
     ID_ciezarowe INT PRIMARY KEY,
@@ -513,8 +514,6 @@ VALUES
     (10, 'DF', 'CF410', 2013, 390000, 242300,4100);
 
 	SELECT * FROM Ciezarowe
-
-
 
 	-- Tworzenie tabeli "Motocykle" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o naszych motocyklach.
 CREATE TABLE Motocykle (
@@ -650,4 +649,25 @@ RETURN (
 );
 
 SELECT * FROM CENA(100000)
-SELECT * FROM CENA(2000)	
+SELECT * FROM CENA(2000)
+
+-- Tabela glowna Pojazdy
+CREATE TABLE Pojazdy (
+ID_Pojazdu INT PRIMARY KEY,
+Rodzaj VARCHAR(50),
+)
+
+ALTER TABLE Budowlane
+ADD ID_Pojazdu INT,
+FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
+
+ALTER TABLE Ciezarowe
+ADD ID_Pojazdu INT,
+FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
+
+ALTER TABLE Motocykle
+ADD ID_Pojazdu INT,
+FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
+
+// DO ZROBIENIA
+// WYPELNIC TABELE Budowlane, Ciezarowe, Motocykle i Pojazdy
