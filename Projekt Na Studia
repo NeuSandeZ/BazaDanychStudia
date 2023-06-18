@@ -602,19 +602,6 @@ VALUES
 
 ---Widok NajdrozszePojazdy pokazuje najdrozszy pojazd z kazdej kategorii
 
-CREATE VIEW NajdrozszePojazdy AS
-SELECT TOP 1 'Samochody' AS Kategoria, Marka, Model, Cena
-FROM Samochody
-UNION ALL
-SELECT TOP 1 'Ciezarowe' AS Kategoria, Marka, Model, Cena
-FROM Ciezarowe
-UNION ALL
-SELECT TOP 1 'Motocykle' AS Kategoria, Marka, Model, Cena
-FROM Motocykle
-UNION ALL
-SELECT TOP 1 'Budowlane' AS Kategoria, Marka, Model, Cena
-FROM Budowlane
-ORDER BY Cena DESC;
 
 
 
