@@ -1,7 +1,8 @@
 -- PROJEKT KOMIS SAMOCHODOWY
 -- Nazwiska studentow: Wojtek Massalski, Oktawian Krzywicki, Aleksander Ligęza-Salamon
 
-
+-- W tej bazie danych będzie można przechowywać informacje o samochodach, klientach, transakcjach, serwisie, pracownikach i dostawcach związanych z komisem samochodowym.
+-- Generalnie służy do porządkowania informacji o wszystkich procesach związanych z prowadzeniem komisu samochodowego.
 
 -- Tworzenie tabeli "Adresy”, tutaj będziemy przechowywać informacje o adresie zamieszkania naszych klientów.
 CREATE TABLE Adresy (
