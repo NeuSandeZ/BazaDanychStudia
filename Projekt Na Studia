@@ -671,8 +671,8 @@ FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
 
 // DO ZROBIENIA
 // WYPELNIC TABELE Budowlane, Ciezarowe, Motocykle i Pojazdy
-// Budowlane - Aleksander 1-10
-// Ciezarowe - Oktawian 11-20
-// Motocykle - Wojtek 21-30
-// Samochody - Kazdy po 10
-// Pojazdy kazdy po 13 rekordow 
+// Budowlane - Aleksander 1-10 (polaczyc z tabela pojazdy za pomoca Update)
+// Ciezarowe - Oktawian 11-20 (polaczyc z tabela pojazdy za pomoca Update)
+// Motocykle - Wojtek 21-30 (polaczyc z tabela pojazdy za pomoca Update)
+// Samochody - 31-40 (polaczyc z tabela pojazdy za pomoca Update)
+// Pojazdy (tutaj zrobic insert) 
