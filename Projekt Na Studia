@@ -680,3 +680,55 @@ FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
 // Motocykle - Wojtek 21-30 (polaczyc z tabela pojazdy za pomoca Update)
 // Samochody - 31-40 (polaczyc z tabela pojazdy za pomoca Update)
 // Pojazdy (tutaj zrobic insert) 
+
+-- Tabela glowna Pojazdy
+CREATE TABLE Pojazdy (
+ID_Pojazdu INT PRIMARY KEY,
+Rodzaj VARCHAR(50),
+)
+-- Wypelnienie tabeli Pojazdy
+INSERT INTO Pojazdy (ID_Pojazdu, Rodzaj)
+VALUES 
+ (1, 'Budowlane'),
+ (2, 'Budowlane'),
+ (3, 'Budowlane'),
+ (4, 'Budowlane'),
+ (5, 'Budowlane'),
+ (6, 'Budowlane'),
+ (7, 'Budowlane'),
+ (8, 'Budowlane'),
+ (9, 'Budowlane'),
+ (10, 'Budowlane'),
+(11, 'Ciezarowe'),
+ (12, 'Ciezarowe'),
+ (13, 'Ciezarowe'),
+ (14, 'Ciezarowe'),
+ (15, 'Ciezarowe'),
+ (16, 'Ciezarowe'),
+ (17, 'Ciezarowe'),
+ (18, 'Ciezarowe'),
+ (19, 'Ciezarowe'),
+ (20, 'Ciezarowe'),
+(21, 'Motocykle'),
+ (22, 'Motocykle'),
+ (23, 'Motocykle'),
+ (24, 'Motocykle'),
+ (25, 'Motocykle'),
+ (26, 'Motocykle'),
+ (27, 'Motocykle'),
+ (28, 'Motocykle'),
+ (29, 'Motocykle'),
+ (30, 'Motocykle'),
+(31, 'Samochody'),
+ (32, 'Samochody'),
+ (33, 'Samochody'),
+ (34, 'Samochody'),
+ (35, 'Samochody'),
+ (36, 'Samochody'),
+ (37, 'Samochody'),
+ (38, 'Samochody'),
+ (39, 'Samochody'),
+ (40, 'Samochody');
+
+ 
+SELECT * FROM Pojazdy
