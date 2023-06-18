@@ -4,6 +4,8 @@
 -- W tej bazie danych będzie można przechowywać informacje o samochodach, klientach, transakcjach, serwisie, pracownikach i dostawcach związanych z komisem samochodowym.
 -- Generalnie służy do porządkowania informacji o wszystkich procesach związanych z prowadzeniem komisu samochodowego.
 
+--(DODANE PRZEZ WOJTEK)
+
 -- Tworzenie tabeli "Adresy”, tutaj będziemy przechowywać informacje o adresie zamieszkania naszych klientów.
 CREATE TABLE Adresy (
     ID_adresu INT PRIMARY KEY,
@@ -68,7 +70,11 @@ CREATE TABLE Serwis (
     Opis_usterki VARCHAR(100),
     Data_zgłoszenia DATE,
     Koszt_naprawy DECIMAL(10, 2),
+    Serwis_log_Nr INT 
+    ID_dostawcy INT
     FOREIGN KEY (ID_samochodu) REFERENCES Samochody(ID_samochodu)
+    FOREIGN KEY(Serwis_log_Nr) REFERENCES Serwis(ID_serwisu)
+    FOREIGN KEY (ID_dostawcy) REFERENCES Dostawcy(ID_dostawcy)
 );
 
 -- Tworzenie tabeli "Dostawcy”. Tutaj będziemy trzymać informacje o wszystkich naszych dostawcach części i gotowych aut.
@@ -222,8 +228,6 @@ FROM Transakcje
 GROUP BY YEAR(Data_transakcji);
 GO
 SELECT * FROM StatystykiTransakcji
-
-
 
 
 
@@ -638,13 +642,6 @@ WHERE
 
 	 SELECT * FROM PracownikZNajwiekszymiDodatkami
 
-
------------------------------------------------
-Projekt 2
------------------------------------------------
-1.Jedną funkcję (na osobę), która zwraca zestaw rekordów. Funkcja powinna mieć co najmniej jeden parametr.
-
-
 CREATE FUNCTION CENA(@Cena MONEY) RETURNS TABLE AS 
 RETURN (
     SELECT Marka, Model
@@ -654,4 +651,3 @@ RETURN (
 
 SELECT * FROM CENA(100000)
 SELECT * FROM CENA(2000)	
-----OK-----
