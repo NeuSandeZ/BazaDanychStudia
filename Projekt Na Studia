@@ -546,31 +546,33 @@ VALUES
 	SELECT * FROM Motocykle
 
 
-
-	-- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynacy budwlanych w komisie.
+-- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynacy budwlanych w komisie.
 CREATE TABLE Budowlane (
     ID_budowlane INT PRIMARY KEY,
     Rodzaj VARCHAR(40),
-	Marka VARCHAR(40),
+    Marka VARCHAR(40),
     Model VARCHAR(40),
     Rok_produkcji INT,
     Cena DECIMAL(10, 2),
+    ID_Pojazdu INT,
     CONSTRAINT CHK_Rodzaj_NotEmpty CHECK (Rodzaj IS NOT NULL),
-    CONSTRAINT CHK_Cena3 CHECK (Cena > 0));
+    CONSTRAINT CHK_Cena3 CHECK (Cena > 0),
+    FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
+	);
 
 -- Wypełnianie tabeli "Budowlane" przykładowymi danymi
-INSERT INTO Budowlane (ID_budowlane,Rodzaj,Marka,Model, Rok_produkcji, Cena)
+INSERT INTO Budowlane (ID_budowlane,Rodzaj,Marka,Model, Rok_produkcji, Cena, ID_Pojazdu)
 VALUES
-(1, 'Minikoparka', 'EVERUN', 'RE 1000', 2022, 800000),
-(2, 'Wózek widłowy', 'Linde', 'L12', 2012, 15000),
-(3, 'Ładowarka', 'VOLVO', 'L220e', 2014, 185000),
-(4, 'Koparka', 'VOLVO', 'EC-140DL', 2014,  11800),
-(5, 'Wózek widłowy', 'Jungheinrich', 'EFG425', 2017, 62000),
-(6, 'Spycharka', 'KOMATSU', '51PX-22', 2013, 339000),
-(7,  'Minikoparka', 'Wolf', 'WE16', 2022, 51500),
-(8,  'Walec', 'Caterpillar', 'CB-224e', 2006, 35000),
-(9,  'Koparka', 'Caterpillar', 'DX140W', 2012, 287000),
-(10, 'Ładowarka teleskopowa', 'Dieci', '37.13 Runner', 2004, 88900);
+(1, 'Minikoparka', 'EVERUN', 'RE 1000', 2022, 800000, 1),
+(2, 'Wózek widłowy', 'Linde', 'L12', 2012, 15000, 2),
+(3, 'Ładowarka', 'VOLVO', 'L220e', 2014, 185000, 3),
+(4, 'Koparka', 'VOLVO', 'EC-140DL', 2014,  11800, 4),
+(5, 'Wózek widłowy', 'Jungheinrich', 'EFG425', 2017, 62000, 5),
+(6, 'Spycharka', 'KOMATSU', '51PX-22', 2013, 339000, 6),
+(7,  'Minikoparka', 'Wolf', 'WE16', 2022, 51500, 7),
+(8,  'Walec', 'Caterpillar', 'CB-224e', 2006, 35000, 8),
+(9,  'Koparka', 'Caterpillar', 'DX140W', 2012, 287000, 9),
+(10, 'Ładowarka teleskopowa', 'Dieci', '37.13 Runner', 2004, 88900, 10);
 
 SELECT * FROM Budowlane
 
@@ -657,6 +659,8 @@ ID_Pojazdu INT PRIMARY KEY,
 Rodzaj VARCHAR(50),
 )
 
+
+------------------ POPRAWKI -----------------------------
 ALTER TABLE Budowlane
 ADD ID_Pojazdu INT,
 FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
