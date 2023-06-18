@@ -671,3 +671,6 @@ FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
 
 // DO ZROBIENIA
 // WYPELNIC TABELE Budowlane, Ciezarowe, Motocykle i Pojazdy
+// Budowlane - Aleksander
+// Ciezarowe - Oktawian
+// Motocykle - Wojtek
