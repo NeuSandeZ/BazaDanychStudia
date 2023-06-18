@@ -1,5 +1,8 @@
 -- PROJEKT KOMIS SAMOCHODOWY
--- Nazwiska studentow
+-- Nazwiska studentow: Wojtek Massalski, Oktawian Krzywicki, Aleksander Ligęza-Salamon
+
+
+
 -- Tworzenie tabeli "Adresy”, tutaj będziemy przechowywać informacje o adresie zamieszkania naszych klientów.
 CREATE TABLE Adresy (
     ID_adresu INT PRIMARY KEY,
