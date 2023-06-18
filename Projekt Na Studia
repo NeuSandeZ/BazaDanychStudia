@@ -480,4 +480,178 @@ SELECT * FROM Serwis
 
 
 -- KONIEC (OLLO)
-test
+----OK------
+-- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje o naszych samochodach zaklasyfikowanych jako ciężarowe.
+CREATE TABLE Ciezarowe(
+    ID_ciezarowe INT PRIMARY KEY,
+    Marka VARCHAR(50),
+    Model VARCHAR(50),
+    Rok_produkcji INT,
+    Przebieg INT,
+    Cena DECIMAL(10, 2),
+    Masa_kg INT,
+    CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
+    CONSTRAINT CHK_Cena1 CHECK (Cena > 0),);
+   
+
+-- Wypełnianie tabeli "Ciężarowe" przykładowymi danymi
+INSERT INTO Ciezarowe (ID_ciezarowe, Marka, Model, Rok_produkcji, Przebieg, Cena,Masa_kg)
+VALUES
+    (1, 'Merceds', 'Actros', 2017, 915000, 112900,3500),
+    (2, 'Scania', 'R440', 2013, 1490000, 99000,5000),
+    (3, 'Volkswagen', 'Crafter', 2023, 100, 307500,4700 ),
+    (4, 'Man', 'TGX', 2013, 614000, 127800,5200),
+    (5, 'Scania', 'R420', 2010, 1370000, 104500,6000),
+    (6, 'Renault', 'D7,5', 2016, 130000, 111000,5100),
+    (7, 'Man', 'TGL', 2016, 332000, 232000,3900),
+    (8, 'Iveco', 'Starlis', 2007, 1362000, 29900,3800),
+    (9, 'Star', '266M', 1996, 5000, 189400,4200),
+    (10, 'DF', 'CF410', 2013, 390000, 242300,4100);
+
+	SELECT * FROM Ciezarowe
+
+
+
+	-- Tworzenie tabeli "Motocykle" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o naszych motocyklach.
+CREATE TABLE Motocykle (
+    ID_motocykla INT PRIMARY KEY,
+    Marka VARCHAR(40),
+    Model VARCHAR(40),
+    Rok_produkcji INT,
+    Przebieg INT,
+    Cena DECIMAL(10, 2),
+    CONSTRAINT CHK_Rok_produkcjiM CHECK (Rok_produkcji >= 1920 AND Rok_produkcji <= YEAR(GETDATE())),
+    CONSTRAINT CHK_Cena2 CHECK (Cena > 0));
+    
+
+-- Wypełnianie tabeli "Motocykle" przykładowymi danymi
+INSERT INTO Motocykle(ID_motocykla, Marka, Model, Rok_produkcji, Przebieg, Cena)
+VALUES
+    (1, 'Suzuki', 'GSX600', 1992, 20000, 5200),
+    (2, 'Kawasaki', 'KX125', 2003, 11000, 8900),
+    (3, 'Honda', 'Shadow125', 2001, 35000, 16500),
+    (4, 'Yamaha', 'Tracer9 GT', 2022, 36000, 11800),
+    (5, 'Barton', 'Hyper 125', 2023, 1000, 12000),
+    (6, 'BMW', 'GR R1250', 2021, 30000, 11000),
+    (7, 'Quad', 'Hammer 200', 2020, 45000, 5900),
+    (8, 'Malaguti', 'Kymco', 2015, 62000, 3000),
+    (9, 'Kayo', 'K2 Enduro', 2021, 5000, 8200),
+    (10, 'Chopper Challenger', 'XG 200', 2007, 49000, 5500);
+
+
+
+	SELECT * FROM Motocykle
+
+
+
+	-- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynacy budwlanych w komisie.
+CREATE TABLE Budowlane (
+    ID_budowlane INT PRIMARY KEY,
+    Rodzaj VARCHAR(40),
+	Marka VARCHAR(40),
+    Model VARCHAR(40),
+    Rok_produkcji INT,
+    Cena DECIMAL(10, 2),
+    CONSTRAINT CHK_Rodzaj_NotEmpty CHECK (Rodzaj IS NOT NULL),
+    CONSTRAINT CHK_Cena3 CHECK (Cena > 0));
+
+-- Wypełnianie tabeli "Budowlane" przykładowymi danymi
+INSERT INTO Budowlane (ID_budowlane,Rodzaj,Marka,Model, Rok_produkcji, Cena)
+VALUES
+(1, 'Minikoparka', 'EVERUN', 'RE 1000', 2022, 800000),
+(2, 'Wózek widłowy', 'Linde', 'L12', 2012, 15000),
+(3, 'Ładowarka', 'VOLVO', 'L220e', 2014, 185000),
+(4, 'Koparka', 'VOLVO', 'EC-140DL', 2014,  11800),
+(5, 'Wózek widłowy', 'Jungheinrich', 'EFG425', 2017, 62000),
+(6, 'Spycharka', 'KOMATSU', '51PX-22', 2013, 339000),
+(7,  'Minikoparka', 'Wolf', 'WE16', 2022, 51500),
+(8,  'Walec', 'Caterpillar', 'CB-224e', 2006, 35000),
+(9,  'Koparka', 'Caterpillar', 'DX140W', 2012, 287000),
+(10, 'Ładowarka teleskopowa', 'Dieci', '37.13 Runner', 2004, 88900);
+
+SELECT * FROM Budowlane
+
+
+-- Tworzenie tabeli "Dodatki"
+CREATE TABLE Dodatki (
+    ID_pracownika INT,
+    Dodatek_stanowisko INT,
+    Dodatek_staż INT,
+    Dodatek_nadgodziny INT,
+    Dodatek_rodzinny INT,
+    Dodatek_brakL4 INT,
+    Dodatek_lidersprzedazy INT,
+    CONSTRAINT CHK_DStanowisko_NotEmpty CHECK (Dodatek_stanowisko IS NOT NULL),
+	FOREIGN KEY (ID_pracownika) REFERENCES Pracownicy(ID_pracownika)
+);
+
+-- Wypełnianie tabeli "Dodatki" przykładowymi danymi
+INSERT INTO Dodatki (ID_pracownika, Dodatek_stanowisko, Dodatek_staż, Dodatek_nadgodziny, Dodatek_rodzinny, Dodatek_brakL4, Dodatek_lidersprzedazy)
+VALUES
+    (1, 100, 0, 150, 50, 0, 0),
+    (2, 500, 100, 0, 0, 100, 0),
+    (3, 200, 0, 220, 100, 100, 0),
+    (4, 0, 0, 170, 50, 0, 0),
+    (5, 100, 100, 120, 100, 100, 0),
+    (6, 300, 0, 180, 100, 0, 0),
+    (7, 100, 100, 0, 0, 0, 200),
+    (8, 200, 0, 0, 0, 0, 0),
+    (9, 200, 0, 260, 100, 100, 0),
+    (10, 500, 100, 0, 0, 0, 0);
+
+
+---Widok NajdrozszePojazdy pokazuje najdrozszy pojazd z kazdej kategorii
+
+CREATE VIEW NajdrozszePojazdy AS
+SELECT TOP 1 'Samochody' AS Kategoria, Marka, Model, Cena
+FROM Samochody
+UNION ALL
+SELECT TOP 1 'Ciezarowe' AS Kategoria, Marka, Model, Cena
+FROM Ciezarowe
+UNION ALL
+SELECT TOP 1 'Motocykle' AS Kategoria, Marka, Model, Cena
+FROM Motocykle
+UNION ALL
+SELECT TOP 1 'Budowlane' AS Kategoria, Marka, Model, Cena
+FROM Budowlane
+ORDER BY Cena DESC;
+
+
+
+SELECT *
+FROM NajdrozszePojazdy;
+
+-- Widok PracownikZNajwiekszymiDodatkami
+
+CREATE VIEW PracownikZNajwiekszymiDodatkami AS
+SELECT p.ID_pracownika, p.Imię, p.Nazwisko, 
+       d.Dodatek_stanowisko, d.Dodatek_staż, d.Dodatek_nadgodziny, 
+       d.Dodatek_rodzinny, d.Dodatek_brakL4, d.Dodatek_lidersprzedazy
+FROM Pracownicy p
+JOIN Dodatki d ON p.ID_pracownika = d.ID_pracownika
+WHERE 
+    (d.Dodatek_stanowisko + d.Dodatek_staż + d.Dodatek_nadgodziny + 
+     d.Dodatek_rodzinny + d.Dodatek_brakL4 + d.Dodatek_lidersprzedazy) = 
+    (SELECT MAX(d2.Dodatek_stanowisko + d2.Dodatek_staż + d2.Dodatek_nadgodziny + 
+                 d2.Dodatek_rodzinny + d2.Dodatek_brakL4 + d2.Dodatek_lidersprzedazy)
+     FROM Dodatki d2);
+
+	 SELECT * FROM PracownikZNajwiekszymiDodatkami
+
+
+-----------------------------------------------
+Projekt 2
+-----------------------------------------------
+1.Jedną funkcję (na osobę), która zwraca zestaw rekordów. Funkcja powinna mieć co najmniej jeden parametr.
+
+
+CREATE FUNCTION CENA(@Cena MONEY) RETURNS TABLE AS 
+RETURN (
+    SELECT Marka, Model
+    FROM Budowlane
+    WHERE Cena > @Cena
+);
+
+SELECT * FROM CENA(100000)
+SELECT * FROM CENA(2000)	
+----OK-----
