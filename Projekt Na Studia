@@ -801,6 +801,31 @@ GO
 --SELECT * FROM Serwis
 -- KONIEC (OLLO)
 
+WYZWALACZ 2  **** dodał OK 19.06.23 ****
+
+Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
+Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
+
+CREATE TABLE Transakcje_log (
+    Nr INT IDENTITY(1,1) PRIMARY KEY, 
+    Data DATETIME, 
+    Uwagi NVARCHAR(255),
+    Uzytkownik NVARCHAR(50) 
+)
+
+GO
+
+CREATE TRIGGER TR_Transakcje_AFTER_UPDATE ON Transakcje
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @UserName NVARCHAR(50)
+    SET @UserName = USER_NAME()
+
+    INSERT INTO Transakcje_log (Data, Uwagi, Uzytkownik)
+    SELECT GETDATE(), 'Zaktualizowano tabelę Transakcje...', @UserName
+    FROM inserted
+END
 
 --KONIEC WYZWALACZY ---------
 
