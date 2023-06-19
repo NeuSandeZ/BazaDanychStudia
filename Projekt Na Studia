@@ -370,7 +370,8 @@ CREATE TABLE Motocykle (
     Cena DECIMAL(10, 2),
     CONSTRAINT CHK_Rok_produkcjiM CHECK (Rok_produkcji >= 1920 AND Rok_produkcji <= YEAR(GETDATE())),
     CONSTRAINT CHK_Cena2 CHECK (Cena > 0));
-
+    FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
+	);
 
 -- Wypełnianie tabeli "Motocykle" przykładowymi danymi
 INSERT INTO Motocykle(ID_motocykla, Marka, Model, Rok_produkcji, Przebieg, Cena)
