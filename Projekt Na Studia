@@ -3,9 +3,12 @@
 
 -- W tej bazie danych będzie można przechowywać informacje o samochodach, klientach, transakcjach, serwisie, pracownikach i dostawcach związanych z komisem samochodowym.
 -- Generalnie służy do porządkowania informacji o wszystkich procesach związanych z prowadzeniem komisu samochodowego.
+-- Ponizszy kod jest przygotowany do wypelnienia nowo utworzonej bazy danych. Wystarczy wkleic kod 'New Query' i wykonac. 
+-- Spowoduje to utworzenie nowych tabel w bazie danych jak rowniez ich wypelnienie danymi.
+-- Na koncu znajduje sie takze kod tworzacy Widoki (Views), funkcje, procedury i wyzwalacze.
 
 
--- Tabela glowna Pojazdy w ktorem beda przetrzymywane id wszystkich pojazdow oraz kategoria do ktorej dany pojazd jest przypisany
+-- Tabela glowna Pojazdy, w ktorej beda przetrzymywane id wszystkich pojazdow oraz kategoria do ktorej dany pojazd jest przypisany
 CREATE TABLE Pojazdy (
 ID_Pojazdu INT PRIMARY KEY,
 Kategoria VARCHAR(50),
@@ -92,8 +95,9 @@ CREATE TABLE Samochody (
     Przebieg INT,
     Cena DECIMAL(10, 2),
     CONSTRAINT CHK_Rok_produkcji CHECK (Rok_produkcji >= 1900 AND Rok_produkcji <= YEAR(GETDATE())),
-    CONSTRAINT CHK_Cena CHECK (Cena > 0)
-FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
+    CONSTRAINT CHK_Cena CHECK (Cena > 0),
+	ID_Pojazdu INT,
+	FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
 	);
 
 
@@ -370,8 +374,9 @@ CREATE TABLE Motocykle (
     Rok_produkcji INT,
     Przebieg INT,
     Cena DECIMAL(10, 2),
+	ID_Pojazdu INT,
     CONSTRAINT CHK_Rok_produkcjiM CHECK (Rok_produkcji >= 1920 AND Rok_produkcji <= YEAR(GETDATE())),
-    CONSTRAINT CHK_Cena2 CHECK (Cena > 0));
+    CONSTRAINT CHK_Cena2 CHECK (Cena > 0),
     FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
 	);
 
@@ -462,7 +467,6 @@ CREATE TABLE Ciezarowe(
     Przebieg INT,
     Cena DECIMAL(10, 2),
     Masa_kg INT,
-    ID_Pojazdu INT,
     CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
     CONSTRAINT CHK_Cena1 CHECK (Cena > 0),
 	ID_Pojazdu INT,
@@ -701,13 +705,15 @@ GO
 
 -- KONIEC FUNKCJI --
 
+
+
 -- PROCEDURY ---------------------------------------------------------------------------
 
 
 -- PROCEDURA 1
 -- Procedura dajrabat obniża cenę samochodów w tabeli Samochody o 5% lub 10% w zależności od wartości parametru @przebieg. 
-Jeśli wartość @przebieg przekracza 500 000, cena zostanie obniżona o 5%.
-Jeśli wartość @przebieg przekracza 1 000 000, cena zostanie obniżona o 10%.
+--Jeśli wartość @przebieg przekracza 500 000, cena zostanie obniżona o 5%.
+-- Jeśli wartość @przebieg przekracza 1 000 000, cena zostanie obniżona o 10%.
 
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
@@ -804,12 +810,12 @@ GO
 
 --SELECT * FROM Serwis_log
 --SELECT * FROM Serwis
--- KONIEC (OLLO)
 
-WYZWALACZ 2  
 
-Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
-Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
+
+-- WYZWALACZ 2  
+-- Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
+-- Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
 
 CREATE TABLE Transakcje_log (
     Nr INT IDENTITY(1,1) PRIMARY KEY, 
@@ -833,7 +839,6 @@ BEGIN
 END
 
 --KONIEC WYZWALACZY ---------
-
 
 
 
