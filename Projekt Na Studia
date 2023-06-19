@@ -423,7 +423,7 @@ VALUES
 -- SELECT * FROM Budowlane
 
 
--- Tworzenie tabeli "Dodatki"
+-- Tworzenie tabeli "Dodatki", w tej tabeli przechowujemy informacje o dodtakach do płac pracowników .
 CREATE TABLE Dodatki (
     ID_pracownika INT,
     Dodatek_stanowisko INT,
@@ -652,7 +652,7 @@ WHERE
 -- Funkcja do projektu 
 
 -- FUNKCJA 1
--- Funkcja informujaca o lacznej kwocie sprzedazy weedlug marki samochodow
+-- Funkcja informujaca o lacznej kwocie sprzedazy według marki samochodow
 IF OBJECT_ID('Follo1', 'TF') IS NOT NULL
 DROP FUNCTION Follo1
 GO
@@ -705,8 +705,10 @@ GO
 
 
 -- PROCEDURA 1
---Procedura zmienia cenę o 5 %  gdy przebieg jest wiekszy niż 500 tys km i zmienia cene o 10 % gdy przebieg jest większy niż 1 mln km. **** dodał OK 19.06.23 ****
--- Procedura ktora wyswietli pojazdy z kategorii samochody o przebiegu wyzszym niz podany w argumencie procedury
+-- Procedura dajrabat obniża cenę samochodów w tabeli Samochody o 5% lub 10% w zależności od wartości parametru @przebieg. 
+Jeśli wartość @przebieg przekracza 500 000, cena zostanie obniżona o 5%.
+Jeśli wartość @przebieg przekracza 1 000 000, cena zostanie obniżona o 10%.
+
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
 BEGIN
@@ -804,7 +806,7 @@ GO
 --SELECT * FROM Serwis
 -- KONIEC (OLLO)
 
-WYZWALACZ 2  **** dodał OK 19.06.23 ****
+WYZWALACZ 2  
 
 Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
 Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
