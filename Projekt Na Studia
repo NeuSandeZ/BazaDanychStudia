@@ -732,3 +732,45 @@ VALUES
 
  
 SELECT * FROM Pojazdy
+---------------------OK 19.06.23-----------------------------------------
+
+
+-- Wypełnianie tabeli "Ciężarowe" przykładowymi danymi
+INSERT INTO Ciezarowe (ID_ciezarowe, Marka, Model, Rok_produkcji, Przebieg, Cena,Masa_kg,ID_Pojazdu)
+VALUES
+    (1, 'Merceds', 'Actros', 2017, 915000, 112900,3500,11),
+    (2, 'Scania', 'R440', 2013, 1490000, 99000,5000,12),
+    (3, 'Volkswagen', 'Crafter', 2023, 100, 307500,4700,13),
+    (4, 'Man', 'TGX', 2013, 614000, 127800,5200,14),
+    (5, 'Scania', 'R420', 2010, 1370000, 104500,6000,15),
+    (6, 'Renault', 'D7,5', 2016, 130000, 111000,5100,16),
+    (7, 'Man', 'TGL', 2016, 332000, 232000,3900,17),
+    (8, 'Iveco', 'Starlis', 2007, 1362000, 29900,3800,18),
+    (9, 'Star', '266M', 1996, 5000, 189400,4200,19),
+    (10, 'DF', 'CF410', 2013, 390000, 242300,4100,20);
+
+2.Jedną procedurę składowaną na osobę. Procedura powinna zawierać przynajmniej dwa zdania SQL lub jedno zdanie SQL i instrukcję IF. 
+Procedura nie może się składać z samych instrukcji SELECT, ani z samych instrukcji INSERT ani tylko z instrukcji UPDATE.
+Procedura powinna zawierać przynajmniej jeden parametr.
+
+CREATE PROCEDURE dajrabat @przebieg INT
+AS
+BEGIN
+    IF @przebieg > 500000
+    BEGIN
+        --  Obniż cenę o 5%
+        UPDATE Samochody
+        SET Cena = Cena * 0.95
+        WHERE Przebieg = @przebieg;
+    END
+    ELSE IF @przebieg > 1000000
+    BEGIN
+        --  Obniż cenę o 10%
+        UPDATE Samochody
+        SET Cena = Cena * 0.9
+        WHERE Przebieg = @przebieg;
+    END
+ 
+   
+END;
+--------------------OK-END-----------------------------
