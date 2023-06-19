@@ -734,6 +734,7 @@ VALUES
 SELECT * FROM Pojazdy
 ---------------------OK 19.06.23-----------------------------------------
 
+Czy o to chodzilo czy to miałbyć skryp updatewoanej tabeli ? 
 
 -- Wypełnianie tabeli "Ciężarowe" przykładowymi danymi
 INSERT INTO Ciezarowe (ID_ciezarowe, Marka, Model, Rok_produkcji, Przebieg, Cena,Masa_kg,ID_Pojazdu)
@@ -749,9 +750,12 @@ VALUES
     (9, 'Star', '266M', 1996, 5000, 189400,4200,19),
     (10, 'DF', 'CF410', 2013, 390000, 242300,4100,20);
 
+
+
 2.Jedną procedurę składowaną na osobę. Procedura powinna zawierać przynajmniej dwa zdania SQL lub jedno zdanie SQL i instrukcję IF. 
 Procedura nie może się składać z samych instrukcji SELECT, ani z samych instrukcji INSERT ani tylko z instrukcji UPDATE.
 Procedura powinna zawierać przynajmniej jeden parametr.
+Procedura wg. wymagań
 
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
