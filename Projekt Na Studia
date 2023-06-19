@@ -93,7 +93,9 @@ CREATE TABLE Samochody (
     Cena DECIMAL(10, 2),
     CONSTRAINT CHK_Rok_produkcji CHECK (Rok_produkcji >= 1900 AND Rok_produkcji <= YEAR(GETDATE())),
     CONSTRAINT CHK_Cena CHECK (Cena > 0)
-);
+FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
+	);
+
 
 
 -- Tworzenie tabeli "Transakcje" i dodanie dwoch ograniczen. Tutaj będziemy przechowywać wszystkie informacje na temat transakcji. Czyli kto, jakie auto i za ile kupił.
