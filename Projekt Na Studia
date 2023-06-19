@@ -702,6 +702,7 @@ GO
 
 
 -- PROCEDURA 1
+--Procedura zmienia cenę o 5 %  gdy przebieg jest wiekszy niż 500 tys km i zmienia cene o 10 % gdy przebieg jest większy niż 1 mln km. **** dodał OK 19.06.23 ****
 -- Procedura ktora wyswietli pojazdy z kategorii samochody o przebiegu wyzszym niz podany w argumencie procedury
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
