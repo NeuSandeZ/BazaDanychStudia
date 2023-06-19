@@ -4,6 +4,61 @@
 -- W tej bazie danych będzie można przechowywać informacje o samochodach, klientach, transakcjach, serwisie, pracownikach i dostawcach związanych z komisem samochodowym.
 -- Generalnie służy do porządkowania informacji o wszystkich procesach związanych z prowadzeniem komisu samochodowego.
 
+
+-- Tabela glowna Pojazdy w ktorem beda przetrzymywane id wszystkich pojazdow oraz kategoria do ktorej dany pojazd jest przypisany
+CREATE TABLE Pojazdy (
+ID_Pojazdu INT PRIMARY KEY,
+Kategoria VARCHAR(50),
+)
+-- Wypelnienie tabeli Pojazdy
+INSERT INTO Pojazdy (ID_Pojazdu, Kategoria)
+VALUES 
+ (1, 'Budowlane'),
+ (2, 'Budowlane'),
+ (3, 'Budowlane'),
+ (4, 'Budowlane'),
+ (5, 'Budowlane'),
+ (6, 'Budowlane'),
+ (7, 'Budowlane'),
+ (8, 'Budowlane'),
+ (9, 'Budowlane'),
+ (10, 'Budowlane'),
+(11, 'Ciezarowe'),
+ (12, 'Ciezarowe'),
+ (13, 'Ciezarowe'),
+ (14, 'Ciezarowe'),
+ (15, 'Ciezarowe'),
+ (16, 'Ciezarowe'),
+ (17, 'Ciezarowe'),
+ (18, 'Ciezarowe'),
+ (19, 'Ciezarowe'),
+ (20, 'Ciezarowe'),
+(21, 'Motocykle'),
+ (22, 'Motocykle'),
+ (23, 'Motocykle'),
+ (24, 'Motocykle'),
+ (25, 'Motocykle'),
+ (26, 'Motocykle'),
+ (27, 'Motocykle'),
+ (28, 'Motocykle'),
+ (29, 'Motocykle'),
+ (30, 'Motocykle'),
+(31, 'Samochody'),
+ (32, 'Samochody'),
+ (33, 'Samochody'),
+ (34, 'Samochody'),
+ (35, 'Samochody'),
+ (36, 'Samochody'),
+ (37, 'Samochody'),
+ (38, 'Samochody'),
+ (39, 'Samochody'),
+ (40, 'Samochody');
+
+ 
+-- SELECT * FROM Pojazdy
+
+
+
 --(DODANE PRZEZ WOJTEK)
 
 -- Tworzenie tabeli "Adresy”, tutaj będziemy przechowywać informacje o adresie zamieszkania naszych klientów.
@@ -63,19 +118,6 @@ CREATE TABLE Pracownicy (
     Data_zatrudnienia DATE
 );
 
--- Tworzenie tabeli "Serwis”. Tutaj będziemy prowadzili ewidencję wszystkich napraw naszych aut.
-CREATE TABLE Serwis (
-    ID_serwisu INT PRIMARY KEY,
-    ID_samochodu INT,
-    Opis_usterki VARCHAR(100),
-    Data_zgłoszenia DATE,
-    Koszt_naprawy DECIMAL(10, 2),
-    Serwis_log_Nr INT 
-    ID_dostawcy INT
-    FOREIGN KEY (ID_samochodu) REFERENCES Samochody(ID_samochodu)
-    FOREIGN KEY(Serwis_log_Nr) REFERENCES Serwis(ID_serwisu)
-    FOREIGN KEY (ID_dostawcy) REFERENCES Dostawcy(ID_dostawcy)
-);
 
 -- Tworzenie tabeli "Dostawcy”. Tutaj będziemy trzymać informacje o wszystkich naszych dostawcach części i gotowych aut.
 CREATE TABLE Dostawcy (
@@ -84,6 +126,21 @@ CREATE TABLE Dostawcy (
     Adres VARCHAR(100),
     Numer_telefonu VARCHAR(20),
     Email VARCHAR(100)
+);
+
+
+-- Tworzenie tabeli "Serwis”. Tutaj będziemy prowadzili ewidencję wszystkich napraw naszych aut.
+CREATE TABLE Serwis (
+    ID_serwisu INT PRIMARY KEY,
+    ID_samochodu INT,
+    Opis_usterki VARCHAR(100),
+    Data_zgłoszenia DATE,
+    Koszt_naprawy DECIMAL(10, 2),
+    Serwis_log_Nr INT, 
+    ID_dostawcy INT,
+    FOREIGN KEY (ID_samochodu) REFERENCES Samochody(ID_samochodu),
+    FOREIGN KEY(Serwis_log_Nr) REFERENCES Serwis(ID_serwisu),
+    FOREIGN KEY (ID_dostawcy) REFERENCES Dostawcy(ID_dostawcy)
 );
 
 -- Wypełnianie tabeli "Samochody" przykładowymi danymi
@@ -101,19 +158,6 @@ VALUES
     (10, 'Kia', 'Optima', 2015, 48000, 13000);
 SELECT * FROM Samochody
 
--- Wypełnianie tabeli "Klienci" przykładowymi danymi
-INSERT INTO Klienci (ID_klienta, Imię, Nazwisko, ID_adresu, Numer_telefonu, Email)
-VALUES
-    (1, 'Jan', 'Kowalski', 1, '123456789', 'jan.kowalski@example.com'),
-    (2, 'Anna', 'Nowak', 2, '987654321', 'anna.nowak@example.com'),
-    (3, 'Piotr', 'Wiśniewski', 3, '555555555', 'piotr.wisniewski@example.com'),
-    (4, 'Maria', 'Lewandowska', 4, '111111111', 'maria.lewandowska@example.com'),
-    (5, 'Tomasz', 'Wójcik', 5, '999999999', 'tomasz.wojcik@example.com'),
-    (6, 'Magdalena', 'Kaczmarek', 6, '444444444', 'magdalena.kaczmarek@example.com'),
-    (7, 'Krzysztof', 'Mazur', 7, '777777777', 'krzysztof.mazur@example.com'),
-    (8, 'Alicja', 'Kowalczyk', 8, '222222222', 'alicja.kowalczyk@example.com'),
-    (9, 'Rafał', 'Pawlak', 9, '666666666', 'rafal.pawlak@example.com'),
-    (10, 'Ewa', 'Adamczyk', 10, '333333333', 'ewa.adamczyk@example.com');
 
 	-- Wypełnianie tabeli "Adres" przykładowymi danymi
 INSERT INTO Adresy(ID_adresu, Ulica, Numer_domu, Kod_pocztowy, Miasto)
@@ -128,6 +172,21 @@ VALUES
     (8, 'ul. Zielona', '9', '11-999', 'Szczecin'),
     (9, 'ul. Piękna', '14', '90-123', 'Białystok'),
     (10, 'ul. Malinowa', '11', '66-777', 'Gdynia');
+
+
+-- Wypełnianie tabeli "Klienci" przykładowymi danymi
+INSERT INTO Klienci (ID_klienta, Imię, Nazwisko, ID_adresu, Numer_telefonu, Email)
+VALUES
+    (1, 'Jan', 'Kowalski', 1, '123456789', 'jan.kowalski@example.com'),
+    (2, 'Anna', 'Nowak', 2, '987654321', 'anna.nowak@example.com'),
+    (3, 'Piotr', 'Wiśniewski', 3, '555555555', 'piotr.wisniewski@example.com'),
+    (4, 'Maria', 'Lewandowska', 4, '111111111', 'maria.lewandowska@example.com'),
+    (5, 'Tomasz', 'Wójcik', 5, '999999999', 'tomasz.wojcik@example.com'),
+    (6, 'Magdalena', 'Kaczmarek', 6, '444444444', 'magdalena.kaczmarek@example.com'),
+    (7, 'Krzysztof', 'Mazur', 7, '777777777', 'krzysztof.mazur@example.com'),
+    (8, 'Alicja', 'Kowalczyk', 8, '222222222', 'alicja.kowalczyk@example.com'),
+    (9, 'Rafał', 'Pawlak', 9, '666666666', 'rafal.pawlak@example.com'),
+    (10, 'Ewa', 'Adamczyk', 10, '333333333', 'ewa.adamczyk@example.com');
 
 
 	-- Wypełnianie tabeli "Transakcje" przykładowymi danymi
@@ -188,49 +247,9 @@ VALUES
     (10, 'Firma J', 'ul. Przykładowa 10, Gdynia', '333333333', 'firmaJ@example.com');
 
 	GO
+	
 
-	--VIEWS
-	--Ten widok zwraca informacje o samochodach które są wyprodukowane poniżej 2017 rocznika.
-CREATE VIEW SamochodyPonizej2017 AS
-SELECT s.ID_samochodu, s.Marka, s.Model, s.Rok_produkcji
-FROM Samochody s
-WHERE s.Rok_produkcji < 2017;
-GO
-SELECT * FROM SamochodyPonizej2017
-GO
-
---Ten widok zwraca informacje o wszystkich transakcjach z klientami.
-CREATE VIEW TransakcjeKlientow AS
-SELECT t.ID_transakcji, k.Imię, k.Nazwisko, t.Data_transakcji, t.Kwota
-FROM Transakcje t
-JOIN Klienci k ON t.ID_klienta = k.ID_klienta;
-GO
-SELECT * FROM TransakcjeKlientow
-GO
-
---Ten widok zwraca informacje o wszystkich serwisach i naprawach.
-CREATE VIEW SerwisyNaprawy AS
-SELECT s.ID_serwisu, s.ID_samochodu, c.Marka, c.Model, s.Opis_usterki, s.Data_zgłoszenia
-FROM Serwis s
-JOIN Samochody c ON s.ID_samochodu = c.ID_samochodu;
-GO
-SELECT * FROM SerwisyNaprawy
-GO
-
---Ten widok zwraca informacje o wszystkich transakcjach jakie były dokonane w danym roku i liczy ich średnia.
-CREATE VIEW StatystykiTransakcji AS
-SELECT 
-    YEAR(Data_transakcji) AS Rok,
-    COUNT(*) AS LiczbaTransakcji,
-    SUM(Kwota) AS SumaKwotTransakcji,
-    AVG(Kwota) AS SredniaKwotaTransakcji
-FROM Transakcje
-GROUP BY YEAR(Data_transakcji);
-GO
-SELECT * FROM StatystykiTransakcji
-
-
-
+	
 -- DODANE PRZEZ (OLLO)
 
 -- Tworzenie tabeli "WyposazenieAudioMultimedia" z kluczem obcym do ID_Samochodu (DODAL OLLO)
@@ -253,33 +272,21 @@ INSERT INTO WyposazenieAudioMultimedia (ID_audio_multimedia, Interface_bluetooth
 VALUES
     (1, 1, 1, 'Pioneer', 1, 1, 1, 1, 'TomTom', 1),
 	(2, 1, 1, 'Herz', 1, 1, 1, 1, 'Garmin', 2),
-	(3, 0, 1, 'Kenwood', 1, 1, 0, 0, 'Go', 3),
-	(4, 1, 1, 'Alpine', 1, 1, 0, 0, 'Magnetic', 4),
+	(3, 0, 0, 'Kenwood', 1, 1, 0, 0, 'Go', 3),
+	(4, 1, 0, 'Alpine', 1, 1, 0, 0, 'Magnetic', 4),
 	(5, 1, 1, 'Mac Audio', 1, 1, 0, 1, 'Essential', 5),
 	(6, 1, 1, 'Pioneer', 1, 1, 1, 1, 'TomTom', 6),
 	(7, 1, 1, 'Herz', 1, 1, 0, 1, 'Garmin', 7),
-	(8, 0, 1, 'Kenwood', 1, 1, 0, 1, 'Go', 8),
+	(8, 0, 0, 'Kenwood', 1, 1, 0, 1, 'Go', 8),
 	(9, 1, 1, 'Alpine', 1, 1, 0, 1, 'Magnetic', 9),
 	(10, 1, 1, 'Mac Audio', 1, 1, 0, 1, 'Essential', 10); 
-SELECT * FROM WyposazenieAudioMultimedia
-SELECT * FROM Samochody
-UPDATE WyposazenieAudioMultimedia
-SET Gniazdo_USB = 0
-WHERE ID_samochodu = 3 OR ID_samochodu = 8 OR ID_samochodu = 4
-GO
 
-	--VIEWS
-	--Ten widok zwraca liste samochodow wyposazonych w gniazdo USB
-	DROP VIEW Samochod_z_USB
-GO
-CREATE VIEW Samochod_z_USB AS
-SELECT S.ID_samochodu, S.Marka, S.Model, S.Rok_produkcji, WAM.Gniazdo_USB
-FROM Samochody S
-INNER JOIN WyposazenieAudioMultimedia WAM ON S.ID_samochodu = WAM.ID_samochodu
-WHERE WAM.Gniazdo_USB = 1
-GO
-SELECT * FROM Samochod_z_USB
-SELECT * FROM WyposazenieAudioMultimedia
+-- SELECT * FROM WyposazenieAudioMultimedia
+-- SELECT * FROM Samochody
+
+--UPDATE WyposazenieAudioMultimedia
+--SET Gniazdo_USB = 0
+--WHERE ID_samochodu = 3 OR ID_samochodu = 8 OR ID_samochodu = 4
 GO
 
 
@@ -313,30 +320,11 @@ VALUES
 	(9, 1, 1, 1, 1, 1, 0, 'ESP', 9),
 	(10, 1, 1, 1, 0, 1, 0, 'ASR', 10); 
 
-	SELECT * FROM Samochody
-	SELECT * FROM Bezpieczenstwo
-
-	--VIEWS
-	--Ten widok zwraca liste samochodow wyposazonych w system kotroli trackji
-	DROP VIEW Samochod_kotrola_trakcji
-GO
-CREATE VIEW Samochod_kotrola_trakcji AS
-SELECT S.ID_samochodu, S.Marka, S.Model, B.Kontrola_trakcji
-FROM Samochody S
-INNER JOIN Bezpieczenstwo B ON S.ID_samochodu = B.ID_samochodu
-GO
--- Wyswietlenie widoku z nazwami kontroli trakcji dla odpowiedniego samochodu z informacja o marce dancego samochodu.
-SELECT * FROM Samochod_kotrola_trakcji
-
--- Sprawdzenie czy CONSTRAINT w tabeli Bezpieczenstwo dziala poprawnie
-UPDATE Bezpieczenstwo
-SET Kontrola_trakcji = 'BBB'
-WHERE ID_samochodu = 3
+	-- SELECT * FROM Samochody
+	-- SELECT * FROM Bezpieczenstwo
 
 
-
-
-
+	
 -- Tworzenie tabeli "Komfort" z kluczem obcym do ID_Samochodu (DODAL OLLO)
 CREATE TABLE Komfort (
 	ID_komfort INT PRIMARY KEY,
@@ -355,7 +343,7 @@ CREATE TABLE Komfort (
 	CONSTRAINT CHK_Elektryczne_szyby CHECK (Elektryczne_szyby = 'przod' OR Elektryczne_szyby = 'przod i tyl' OR Elektryczne_szyby = 'brak' ) -- brak -> korbka do szyk hehehe
 	);
 
-	
+
 	-- Wypełnianie tabeli "Komfort" przykładowymi danymi
 INSERT INTO Komfort (ID_Komfort, Klimatyzacja, Elektryczny_fotel, Podlokietniki, Kierownica_wielofunkcyjna, Elektryczne_szyby, Tapicerka_skorzana, Czujnik_deszczu, Cyfrowy_kluczyk, ID_samochodu)
 VALUES
@@ -370,151 +358,8 @@ VALUES
 	(9, 'automatyczna', 0, 'brak', 0, 'brak', 1, 0, 0, 9),
 	(10, 'dwustrefowa', 0, 'przod', 1, 'brak', 1, 0, 1, 10); 
 
-	--VIEWS
-	--Ten widok zwraca liste samochodow wyposazonych w system klimatyzacje automatyczna
-	DROP VIEW Samochod_z_wypas_klima
-GO
-CREATE VIEW Samochod_z_wypas_klima AS
-SELECT S.ID_samochodu, S.Marka, S.Model, K.Klimatyzacja
-FROM Samochody S
-INNER JOIN Komfort K ON S.ID_samochodu = K.ID_samochodu
-WHERE Klimatyzacja = 'automatyczna'
-GO
--- Wyswietlenie widoku z nazwami kontroli trakcji dla odpowiedniego samochodu z informacja o marce dancego samochodu.
-SELECT * FROM Samochod_z_wypas_klima
-
--- Sprawdzenie czy CONSTRAINT w tabeli Bezpieczenstwo dziala poprawnie
-UPDATE Komfort
-SET Klimatyzacja = 'tyl1'
-WHERE ID_samochodu = 3
-
-SELECT * FROM Komfort
-
-
--- Funkcja do projektu -- Funkcja informujaca o lacznej kwocie sprzedazy weedlug marki samochodow
-
-IF OBJECT_ID('Follo1', 'TF') IS NOT NULL
-DROP FUNCTION Follo1
-GO
-CREATE FUNCTION Follo1(@CenaMin MONEY, @CenaMax MONEY) RETURNS @Wynik TABLE (
-[Marka Samochodu] NVARCHAR(40),
-[Model Samochodu] NVARCHAR(40),
-[Cena Samochodu] MONEY
-) AS 
-BEGIN
-INSERT INTO @Wynik
-SELECT Marka, Model, Cena FROM Samochody
-WHERE Cena BETWEEN @CenaMin AND @CenaMax
-ORDER BY Cena
-RETURN
-END
-GO
-
-SELECT * FROM Follo1(19000, 25000)
-
-SELECT * FROM Transakcje
-SELECT * FROM Klienci
-SELECT * FROM Samochody
-SELECT * FROM Komfort
-
-
--- PROCEDURA Aktualizujaca Gniazdo USB w samochodzie o podanym id
-
-IF OBJECT_ID('Pollo1', 'P') IS NOT NULL
-    DROP PROCEDURE Pollo1
-GO
-    CREATE PROCEDURE Pollo1 (
-        @Id_samochodu INT,
-        @GniazdoUSB BIT
-    ) AS
-        IF (EXISTS (
-            SELECT * FROM Samochody S
-            WHERE S.ID_samochodu = @Id_samochodu
-        ))
-            UPDATE W
-            SET W.Gniazdo_USB = @GniazdoUSB
-            FROM WyposazenieAudioMultimedia W
-            WHERE W.ID_samochodu = @Id_samochodu
-        ELSE BEGIN
-            DECLARE @Komunikat NVARCHAR(256)
-            SET @Komunikat = FORMATMESSAGE('Samochod o identyfikatorze %d nie istnieje... .', @Id_samochodu)
-            PRINT @Komunikat
-        END
-GO
-
-EXECUTE Pollo1 2, 0 -- zmiana na brak usb
-EXECUTE Pollo1 12, 0 -- Komunikta: brak samochodu o podanym identyfikatorze!
-SELECT * FROM WyposazenieAudioMultimedia
-
--- Wyzwalacz
-CREATE TABLE Serwis_log
-(
-Nr INT IDENTITY(1,1) PRIMARY KEY, 
-Data DATETIME, 
-uwagi NVARCHAR(255)
-)
-GO
-
-IF OBJECT_ID ('Trigger_Log_Ollo', 'TR') IS NOT NULL  
-   DROP TRIGGER Trigger_Log_Ollo;  
-
-GO
-CREATE TRIGGER Trigger_Log_Ollo
-ON Serwis
-AFTER UPDATE
-AS
-IF UPDATE([Koszt_naprawy])
-BEGIN
-SET NOCOUNT ON;
-INSERT INTO Serwis_log
-(
-[Data], [uwagi]  
-)
-VALUES(GETDATE(), 'zmiana ceny serwisu')
-END
-GO
-
-UPDATE Serwis 
-SET Koszt_naprawy = 510
-WHERE ID_samochodu = 1 AND ID_serwisu = 1
-
-SELECT * FROM Serwis_log
-SELECT * FROM Serwis
-
-
-
--- KONIEC (OLLO)
-
-
--- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje o naszych samochodach zaklasyfikowanych jako ciężarowe.
-CREATE TABLE Ciezarowe(
-    ID_ciezarowe INT PRIMARY KEY,
-    Marka VARCHAR(50),
-    Model VARCHAR(50),
-    Rok_produkcji INT,
-    Przebieg INT,
-    Cena DECIMAL(10, 2),
-    Masa_kg INT,
-    CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
-    CONSTRAINT CHK_Cena1 CHECK (Cena > 0),);
-   
-
--- Wypełnianie tabeli "Ciężarowe" przykładowymi danymi
-INSERT INTO Ciezarowe (ID_ciezarowe, Marka, Model, Rok_produkcji, Przebieg, Cena,Masa_kg)
-VALUES
-    (1, 'Merceds', 'Actros', 2017, 915000, 112900,3500),
-    (2, 'Scania', 'R440', 2013, 1490000, 99000,5000),
-    (3, 'Volkswagen', 'Crafter', 2023, 100, 307500,4700 ),
-    (4, 'Man', 'TGX', 2013, 614000, 127800,5200),
-    (5, 'Scania', 'R420', 2010, 1370000, 104500,6000),
-    (6, 'Renault', 'D7,5', 2016, 130000, 111000,5100),
-    (7, 'Man', 'TGL', 2016, 332000, 232000,3900),
-    (8, 'Iveco', 'Starlis', 2007, 1362000, 29900,3800),
-    (9, 'Star', '266M', 1996, 5000, 189400,4200),
-    (10, 'DF', 'CF410', 2013, 390000, 242300,4100);
-
-	SELECT * FROM Ciezarowe
-
+    
+	
 	-- Tworzenie tabeli "Motocykle" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o naszych motocyklach.
 CREATE TABLE Motocykle (
     ID_motocykla INT PRIMARY KEY,
@@ -525,7 +370,7 @@ CREATE TABLE Motocykle (
     Cena DECIMAL(10, 2),
     CONSTRAINT CHK_Rok_produkcjiM CHECK (Rok_produkcji >= 1920 AND Rok_produkcji <= YEAR(GETDATE())),
     CONSTRAINT CHK_Cena2 CHECK (Cena > 0));
-    
+
 
 -- Wypełnianie tabeli "Motocykle" przykładowymi danymi
 INSERT INTO Motocykle(ID_motocykla, Marka, Model, Rok_produkcji, Przebieg, Cena)
@@ -541,9 +386,7 @@ VALUES
     (9, 'Kayo', 'K2 Enduro', 2021, 5000, 8200),
     (10, 'Chopper Challenger', 'XG 200', 2007, 49000, 5500);
 
-
-
-	SELECT * FROM Motocykle
+	-- SELECT * FROM Motocykle
 
 
 -- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynacy budwlanych w komisie.
@@ -574,7 +417,7 @@ VALUES
 (9,  'Koparka', 'Caterpillar', 'DX140W', 2012, 287000, 9),
 (10, 'Ładowarka teleskopowa', 'Dieci', '37.13 Runner', 2004, 88900, 10);
 
-SELECT * FROM Budowlane
+-- SELECT * FROM Budowlane
 
 
 -- Tworzenie tabeli "Dodatki"
@@ -605,136 +448,9 @@ VALUES
     (10, 500, 100, 0, 0, 0, 0);
 
 
----Widok NajdrozszePojazdy pokazuje najdrozszy pojazd z kazdej kategorii
-
-CREATE VIEW NajdrozszePojazdy AS
-SELECT TOP 1 'Samochody' AS Kategoria, Marka, Model, Cena
-FROM Samochody
-UNION ALL
-SELECT TOP 1 'Ciezarowe' AS Kategoria, Marka, Model, Cena
-FROM Ciezarowe
-UNION ALL
-SELECT TOP 1 'Motocykle' AS Kategoria, Marka, Model, Cena
-FROM Motocykle
-UNION ALL
-SELECT TOP 1 'Budowlane' AS Kategoria, Marka, Model, Cena
-FROM Budowlane
-ORDER BY Cena DESC;
-
-
-
-SELECT *
-FROM NajdrozszePojazdy;
-
--- Widok PracownikZNajwiekszymiDodatkami
-
-CREATE VIEW PracownikZNajwiekszymiDodatkami AS
-SELECT p.ID_pracownika, p.Imię, p.Nazwisko, 
-       d.Dodatek_stanowisko, d.Dodatek_staż, d.Dodatek_nadgodziny, 
-       d.Dodatek_rodzinny, d.Dodatek_brakL4, d.Dodatek_lidersprzedazy
-FROM Pracownicy p
-JOIN Dodatki d ON p.ID_pracownika = d.ID_pracownika
-WHERE 
-    (d.Dodatek_stanowisko + d.Dodatek_staż + d.Dodatek_nadgodziny + 
-     d.Dodatek_rodzinny + d.Dodatek_brakL4 + d.Dodatek_lidersprzedazy) = 
-    (SELECT MAX(d2.Dodatek_stanowisko + d2.Dodatek_staż + d2.Dodatek_nadgodziny + 
-                 d2.Dodatek_rodzinny + d2.Dodatek_brakL4 + d2.Dodatek_lidersprzedazy)
-     FROM Dodatki d2);
-
-	 SELECT * FROM PracownikZNajwiekszymiDodatkami
-
-CREATE FUNCTION CENA(@Cena MONEY) RETURNS TABLE AS 
-RETURN (
-    SELECT Marka, Model
-    FROM Budowlane
-    WHERE Cena > @Cena
-);
-
-SELECT * FROM CENA(100000)
-SELECT * FROM CENA(2000)
-
--- Tabela glowna Pojazdy
-CREATE TABLE Pojazdy (
-ID_Pojazdu INT PRIMARY KEY,
-Rodzaj VARCHAR(50),
-)
-
-
------------------- POPRAWKI -----------------------------
-ALTER TABLE Budowlane
-ADD ID_Pojazdu INT,
-FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
-
-ALTER TABLE Ciezarowe
-ADD ID_Pojazdu INT,
-FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
-
-ALTER TABLE Motocykle
-ADD ID_Pojazdu INT,
-FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy(ID_Pojazdu);
-
-// DO ZROBIENIA
-// WYPELNIC TABELE Budowlane, Ciezarowe, Motocykle i Pojazdy
-// Budowlane - Aleksander 1-10 (polaczyc z tabela pojazdy za pomoca Update)
-// Ciezarowe - Oktawian 11-20 (polaczyc z tabela pojazdy za pomoca Update)
-// Motocykle - Wojtek 21-30 (polaczyc z tabela pojazdy za pomoca Update)
-// Samochody - 31-40 (polaczyc z tabela pojazdy za pomoca Update)
-// Pojazdy (tutaj zrobic insert) 
-
--- Tabela glowna Pojazdy
-CREATE TABLE Pojazdy (
-ID_Pojazdu INT PRIMARY KEY,
-Rodzaj VARCHAR(50),
-)
--- Wypelnienie tabeli Pojazdy
-INSERT INTO Pojazdy (ID_Pojazdu, Rodzaj)
-VALUES 
- (1, 'Budowlane'),
- (2, 'Budowlane'),
- (3, 'Budowlane'),
- (4, 'Budowlane'),
- (5, 'Budowlane'),
- (6, 'Budowlane'),
- (7, 'Budowlane'),
- (8, 'Budowlane'),
- (9, 'Budowlane'),
- (10, 'Budowlane'),
-(11, 'Ciezarowe'),
- (12, 'Ciezarowe'),
- (13, 'Ciezarowe'),
- (14, 'Ciezarowe'),
- (15, 'Ciezarowe'),
- (16, 'Ciezarowe'),
- (17, 'Ciezarowe'),
- (18, 'Ciezarowe'),
- (19, 'Ciezarowe'),
- (20, 'Ciezarowe'),
-(21, 'Motocykle'),
- (22, 'Motocykle'),
- (23, 'Motocykle'),
- (24, 'Motocykle'),
- (25, 'Motocykle'),
- (26, 'Motocykle'),
- (27, 'Motocykle'),
- (28, 'Motocykle'),
- (29, 'Motocykle'),
- (30, 'Motocykle'),
-(31, 'Samochody'),
- (32, 'Samochody'),
- (33, 'Samochody'),
- (34, 'Samochody'),
- (35, 'Samochody'),
- (36, 'Samochody'),
- (37, 'Samochody'),
- (38, 'Samochody'),
- (39, 'Samochody'),
- (40, 'Samochody');
-
- 
-SELECT * FROM Pojazdy
----------------------OK 19.06.23-----------------------------------------
-
-- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje o naszych samochodach zaklasyfikowanych jako ciężarowe.
+	
+-- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje 
+-- o naszych samochodach zaklasyfikowanych jako ciężarowe.
 CREATE TABLE Ciezarowe(
     ID_ciezarowe INT PRIMARY KEY,
     Marka VARCHAR(50),
@@ -745,8 +461,8 @@ CREATE TABLE Ciezarowe(
     Masa_kg INT,
     CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
     CONSTRAINT CHK_Cena1 CHECK (Cena > 0),
-    FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
-
+	ID_Pojazdu INT,
+	FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
 );
    
 
@@ -765,13 +481,227 @@ VALUES
     (9, 'Star', '266M', 1996, 5000, 189400,4200,19),
     (10, 'DF', 'CF410', 2013, 390000, 242300,4100,20);
 
+	GO
 
-2.Jedną procedurę składowaną na osobę. Procedura powinna zawierać przynajmniej dwa zdania SQL lub jedno zdanie SQL i instrukcję IF. 
-Procedura nie może się składać z samych instrukcji SELECT, ani z samych instrukcji INSERT ani tylko z instrukcji UPDATE.
-Procedura powinna zawierać przynajmniej jeden parametr.
-Procedura wg. wymagań. 
-Procedura zmienia cenę o 5 %  gdy przebieg jest wiekszy niż 500 tys km i zmienia cene o 10 % gdy przebieg jest większy niż 1 mln km.
+	-- KONIE TABEL --------
 
+
+
+
+
+	---------------------------------------------------------------------------------------------------------------------------
+	--VIEWS ----------  WIDOKI
+	-- WIDOK 1
+	-- Ten widok zwraca informacje o samochodach które są wyprodukowane poniżej 2017 rocznika.
+CREATE VIEW SamochodyPonizej2017 AS
+SELECT s.ID_samochodu, s.Marka, s.Model, s.Rok_produkcji
+FROM Samochody s
+WHERE s.Rok_produkcji < 2017;
+GO
+-- SELECT * FROM SamochodyPonizej2017
+GO
+
+-- WIDOK 2
+--Ten widok zwraca informacje o wszystkich transakcjach z klientami.
+CREATE VIEW TransakcjeKlientow AS
+SELECT t.ID_transakcji, k.Imię, k.Nazwisko, t.Data_transakcji, t.Kwota
+FROM Transakcje t
+JOIN Klienci k ON t.ID_klienta = k.ID_klienta;
+GO
+-- SELECT * FROM TransakcjeKlientow
+GO
+
+-- WIDOK 3
+--Ten widok zwraca informacje o wszystkich serwisach i naprawach.
+CREATE VIEW SerwisyNaprawy AS
+SELECT s.ID_serwisu, s.ID_samochodu, c.Marka, c.Model, s.Opis_usterki, s.Data_zgłoszenia
+FROM Serwis s
+JOIN Samochody c ON s.ID_samochodu = c.ID_samochodu;
+GO
+-- SELECT * FROM SerwisyNaprawy
+GO
+
+-- WIDOK 4
+--Ten widok zwraca informacje o wszystkich transakcjach jakie były dokonane w danym roku i liczy ich średnia.
+CREATE VIEW StatystykiTransakcji AS
+SELECT 
+    YEAR(Data_transakcji) AS Rok,
+    COUNT(*) AS LiczbaTransakcji,
+    SUM(Kwota) AS SumaKwotTransakcji,
+    AVG(Kwota) AS SredniaKwotaTransakcji
+FROM Transakcje
+GROUP BY YEAR(Data_transakcji);
+GO
+-- SELECT * FROM StatystykiTransakcji
+
+-- WIDOK 5
+	--VIEWS
+	--Ten widok zwraca liste samochodow wyposazonych w gniazdo USB
+	IF OBJECT_ID ('Samochod_z_USB', 'V') IS NOT NULL
+	DROP VIEW Samochod_z_USB
+GO
+CREATE VIEW Samochod_z_USB AS
+SELECT S.ID_samochodu, S.Marka, S.Model, S.Rok_produkcji, WAM.Gniazdo_USB
+FROM Samochody S
+INNER JOIN WyposazenieAudioMultimedia WAM ON S.ID_samochodu = WAM.ID_samochodu
+WHERE WAM.Gniazdo_USB = 1
+GO
+--SELECT * FROM Samochod_z_USB
+--SELECT * FROM WyposazenieAudioMultimedia
+GO
+
+
+-- WIDOK 6
+	--VIEWS
+	--Ten widok zwraca liste samochodow wyposazonych w system kotroli trackji
+	IF OBJECT_ID ('Samochod_kotrola_trakcji', 'V') IS NOT NULL
+	DROP VIEW Samochod_kotrola_trakcji
+GO
+CREATE VIEW Samochod_kotrola_trakcji AS
+SELECT S.ID_samochodu, S.Marka, S.Model, B.Kontrola_trakcji
+FROM Samochody S
+INNER JOIN Bezpieczenstwo B ON S.ID_samochodu = B.ID_samochodu
+GO
+-- Wyswietlenie widoku z nazwami kontroli trakcji dla odpowiedniego samochodu z informacja o marce dancego samochodu.
+-- SELECT * FROM Samochod_kotrola_trakcji
+
+-- Sprawdzenie czy CONSTRAINT w tabeli Bezpieczenstwo dziala poprawnie
+--UPDATE Bezpieczenstwo
+--SET Kontrola_trakcji = 'BBB'
+--WHERE ID_samochodu = 3
+
+-- WIDOK 7
+	--Ten widok zwraca liste samochodow wyposazonych w system klimatyzacje automatyczna
+	IF OBJECT_ID ('Samochod_z_wypas_klima', 'V') IS NOT NULL
+	DROP VIEW Samochod_z_wypas_klima
+GO
+CREATE VIEW Samochod_z_wypas_klima AS
+SELECT S.ID_samochodu, S.Marka, S.Model, K.Klimatyzacja
+FROM Samochody S
+INNER JOIN Komfort K ON S.ID_samochodu = K.ID_samochodu
+WHERE Klimatyzacja = 'automatyczna'
+GO
+-- Wyswietlenie widoku z nazwami kontroli trakcji dla odpowiedniego samochodu z informacja o marce dancego samochodu.
+-- SELECT * FROM Samochod_z_wypas_klima
+
+-- Sprawdzenie czy CONSTRAINT w tabeli Bezpieczenstwo dziala poprawnie
+--UPDATE Komfort
+--SET Klimatyzacja = 'tyl1'
+--WHERE ID_samochodu = 3
+
+--SELECT * FROM Komfort
+
+
+-- WIDOK 8
+---Widok NajdrozszePojazdy pokazuje najdrozszy pojazd z kazdej kategorii
+GO
+CREATE VIEW NajdrozszePojazdy AS
+SELECT TOP 1 'Samochody' AS Kategoria, Marka, Model, Cena
+FROM Samochody
+UNION ALL
+SELECT TOP 1 'Ciezarowe' AS Kategoria, Marka, Model, Cena
+FROM Ciezarowe
+UNION ALL
+SELECT TOP 1 'Motocykle' AS Kategoria, Marka, Model, Cena
+FROM Motocykle
+UNION ALL
+SELECT TOP 1 'Budowlane' AS Kategoria, Marka, Model, Cena
+FROM Budowlane
+ORDER BY Cena DESC;
+GO
+
+-- WIDOK 9
+-- Widok PracownikZNajwiekszymiDodatkami
+GO
+CREATE VIEW PracownikZNajwiekszymiDodatkami AS
+SELECT p.ID_pracownika, p.Imię, p.Nazwisko, 
+       d.Dodatek_stanowisko, d.Dodatek_staż, d.Dodatek_nadgodziny, 
+       d.Dodatek_rodzinny, d.Dodatek_brakL4, d.Dodatek_lidersprzedazy
+FROM Pracownicy p
+JOIN Dodatki d ON p.ID_pracownika = d.ID_pracownika
+WHERE 
+    (d.Dodatek_stanowisko + d.Dodatek_staż + d.Dodatek_nadgodziny + 
+     d.Dodatek_rodzinny + d.Dodatek_brakL4 + d.Dodatek_lidersprzedazy) = 
+    (SELECT MAX(d2.Dodatek_stanowisko + d2.Dodatek_staż + d2.Dodatek_nadgodziny + 
+                 d2.Dodatek_rodzinny + d2.Dodatek_brakL4 + d2.Dodatek_lidersprzedazy)
+     FROM Dodatki d2);
+	 GO
+	-- SELECT * FROM PracownikZNajwiekszymiDodatkami
+
+
+
+
+
+
+
+
+
+
+
+
+-- KONIEC VIEWS -- KONIEC WIDOKOW
+
+
+
+---FUNKCJE----------------------------------------------------------------------------------------------------------
+-- FUNKCJE-- FUNKCJE-- FUNKCJE-- FUNKCJE-- FUNKCJE-- FUNKCJE
+-- Funkcja do projektu 
+
+-- FUNKCJA 1
+-- Funkcja informujaca o lacznej kwocie sprzedazy weedlug marki samochodow
+IF OBJECT_ID('Follo1', 'TF') IS NOT NULL
+DROP FUNCTION Follo1
+GO
+CREATE FUNCTION Follo1(@CenaMin MONEY, @CenaMax MONEY) RETURNS @Wynik TABLE (
+[Marka Samochodu] NVARCHAR(40),
+[Model Samochodu] NVARCHAR(40),
+[Cena Samochodu] MONEY
+) AS 
+BEGIN
+INSERT INTO @Wynik
+SELECT Marka, Model, Cena FROM Samochody
+WHERE Cena BETWEEN @CenaMin AND @CenaMax
+ORDER BY Cena
+RETURN
+END
+GO
+
+--SELECT * FROM Follo1(19000, 25000)
+
+--SELECT * FROM Transakcje
+--SELECT * FROM Klienci
+--SELECT * FROM Samochody
+--SELECT * FROM Komfort
+
+
+--EXECUTE Pollo1 2, 0 -- zmiana na brak usb
+--EXECUTE Pollo1 12, 0 -- Komunikta: brak samochodu o podanym identyfikatorze!
+--SELECT * FROM WyposazenieAudioMultimedia
+
+
+-- FUNKCJA 2
+-- Funkcja ktora wyswietli pojazdy budowlane o cenie wyzszej niz podana w argumentcie funkcji
+CREATE FUNCTION CENA(@Cena MONEY) RETURNS TABLE AS 
+RETURN (
+    SELECT Marka, Model
+    FROM Budowlane
+    WHERE Cena > @Cena
+);
+GO
+--SELECT * FROM CENA(100000)
+--SELECT * FROM CENA(2000)
+
+	GO
+
+
+
+-- KONIEC FUNKCJI --
+
+-- PROCEDURY ---------------------------------------------------------------------------
+
+
+-- PROCEDURA 1
+-- Procedura ktora wyswietli pojazdy z kategorii samochody o przebiegu wyzszym niz podany w argumencie procedury
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
 BEGIN
@@ -788,34 +718,90 @@ BEGIN
         UPDATE Samochody
         SET Cena = Cena * 0.9
         WHERE Przebieg = @przebieg;
-    END
- 
-   
+    END 
 END;
-
-3.Jeden wyzwalacz na osobę.
-Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
-Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
-
-CREATE TABLE Transakcje_log (
-    Nr INT IDENTITY(1,1) PRIMARY KEY, 
-    Data DATETIME, 
-    Uwagi NVARCHAR(255),
-    Uzytkownik NVARCHAR(50) 
-)
-
 GO
 
-CREATE TRIGGER TR_Transakcje_AFTER_UPDATE ON Transakcje
+
+
+
+-- PROCEDURA 2
+-- PROCEDURA Aktualizujaca Gniazdo USB w samochodzie o podanym id
+IF OBJECT_ID('Pollo1', 'P') IS NOT NULL
+    DROP PROCEDURE Pollo1
+GO
+    CREATE PROCEDURE Pollo1 (
+        @Id_samochodu INT,
+        @GniazdoUSB BIT
+    ) AS
+        IF (EXISTS (
+            SELECT * FROM Samochody S
+            WHERE S.ID_samochodu = @Id_samochodu
+        ))
+            UPDATE W
+            SET W.Gniazdo_USB = @GniazdoUSB
+            FROM WyposazenieAudioMultimedia W
+            WHERE W.ID_samochodu = @Id_samochodu
+        ELSE BEGIN
+            DECLARE @Komunikat NVARCHAR(256)
+            SET @Komunikat = FORMATMESSAGE('Samochod o identyfikatorze %d nie istnieje... .', @Id_samochodu)
+            PRINT @Komunikat
+        END
+GO
+
+
+
+
+
+-- KONIEC PROCEDUR -----
+
+
+
+
+
+------------------------------------------------------------------------------------------
+-- WYZWALACZE -- TRIGGER-- WYZWALACZE -- TRIGGER-- WYZWALACZE -- TRIGGER-- WYZWALACZE -- TRIGGER-- WYZWALACZE -- TRIGGER
+
+-- WYZWALACZ 1
+-- Wyzwalacz, ktory tworzy tabele Serwis_log i wniej zapisuje informacje o zmianie ceny serwisu. Zapis daty dokonania zmiany i adnotacja 'zmiana ceny serwisu'
+CREATE TABLE Serwis_log
+(
+Nr INT IDENTITY(1,1) PRIMARY KEY, 
+Data DATETIME, 
+uwagi NVARCHAR(255)
+)
+GO
+
+IF OBJECT_ID ('Trigger_Log_Ollo', 'TR') IS NOT NULL  
+   DROP TRIGGER Trigger_Log_Ollo;  
+
+GO
+CREATE TRIGGER Trigger_Log_Ollo
+ON Serwis
 AFTER UPDATE
 AS
+IF UPDATE([Koszt_naprawy])
 BEGIN
-    DECLARE @UserName NVARCHAR(50)
-    SET @UserName = USER_NAME()
-
-    INSERT INTO Transakcje_log (Data, Uwagi, Uzytkownik)
-    SELECT GETDATE(), 'Zaktualizowano tabelę Transakcje...', @UserName
-    FROM inserted
+SET NOCOUNT ON;
+INSERT INTO Serwis_log
+(
+[Data], [uwagi]  
+)
+VALUES(GETDATE(), 'zmiana ceny serwisu')
 END
+GO
 
---------------------OK-END-----------------------------
+--UPDATE Serwis 
+--SET Koszt_naprawy = 510
+--WHERE ID_samochodu = 1 AND ID_serwisu = 1
+
+--SELECT * FROM Serwis_log
+--SELECT * FROM Serwis
+-- KONIEC (OLLO)
+
+
+--KONIEC WYZWALACZY ---------
+
+
+
+
