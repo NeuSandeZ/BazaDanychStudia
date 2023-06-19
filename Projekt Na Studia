@@ -459,6 +459,7 @@ CREATE TABLE Ciezarowe(
     Przebieg INT,
     Cena DECIMAL(10, 2),
     Masa_kg INT,
+    ID_Pojazdu INT,
     CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
     CONSTRAINT CHK_Cena1 CHECK (Cena > 0),
 	ID_Pojazdu INT,
