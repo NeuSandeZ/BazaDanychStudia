@@ -392,7 +392,7 @@ VALUES
 	-- SELECT * FROM Motocykle
 
 
--- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynacy budwlanych w komisie.
+-- Tworzenie tabeli "Budowlane" i dodanie dwoch ograniczen. Tutaj przechowamy szczegółowe informacje o maszynach budwlanych w komisie.
 CREATE TABLE Budowlane (
     ID_budowlane INT PRIMARY KEY,
     Rodzaj VARCHAR(40),
