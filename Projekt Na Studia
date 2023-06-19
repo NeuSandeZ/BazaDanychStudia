@@ -734,7 +734,22 @@ VALUES
 SELECT * FROM Pojazdy
 ---------------------OK 19.06.23-----------------------------------------
 
-Czy o to chodzilo czy to miałbyć skryp updatewoanej tabeli ? 
+- Tworzenie tabeli "Ciężarowe" z uwzglednieneim masy pojazdów i dodanie ograniczenia masy. Tutaj przechowamy szczegółowe informacje o naszych samochodach zaklasyfikowanych jako ciężarowe.
+CREATE TABLE Ciezarowe(
+    ID_ciezarowe INT PRIMARY KEY,
+    Marka VARCHAR(50),
+    Model VARCHAR(50),
+    Rok_produkcji INT,
+    Przebieg INT,
+    Cena DECIMAL(10, 2),
+    Masa_kg INT,
+    CONSTRAINT CHK_Masa_kg CHECK (Masa_kg >=3500), 
+    CONSTRAINT CHK_Cena1 CHECK (Cena > 0),
+    FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
+
+);
+   
+
 
 -- Wypełnianie tabeli "Ciężarowe" przykładowymi danymi
 INSERT INTO Ciezarowe (ID_ciezarowe, Marka, Model, Rok_produkcji, Przebieg, Cena,Masa_kg,ID_Pojazdu)
@@ -749,7 +764,6 @@ VALUES
     (8, 'Iveco', 'Starlis', 2007, 1362000, 29900,3800,18),
     (9, 'Star', '266M', 1996, 5000, 189400,4200,19),
     (10, 'DF', 'CF410', 2013, 390000, 242300,4100,20);
-
 
 
 2.Jedną procedurę składowaną na osobę. Procedura powinna zawierać przynajmniej dwa zdania SQL lub jedno zdanie SQL i instrukcję IF. 
