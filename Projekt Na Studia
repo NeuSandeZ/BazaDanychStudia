@@ -769,7 +769,8 @@ VALUES
 2.Jedną procedurę składowaną na osobę. Procedura powinna zawierać przynajmniej dwa zdania SQL lub jedno zdanie SQL i instrukcję IF. 
 Procedura nie może się składać z samych instrukcji SELECT, ani z samych instrukcji INSERT ani tylko z instrukcji UPDATE.
 Procedura powinna zawierać przynajmniej jeden parametr.
-Procedura wg. wymagań
+Procedura wg. wymagań. 
+Procedura zmienia cenę o 5 %  gdy przebieg jest wiekszy niż 500 tys km i zmienia cene o 10 % gdy przebieg jest większy niż 1 mln km.
 
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
@@ -791,4 +792,30 @@ BEGIN
  
    
 END;
+
+3.Jeden wyzwalacz na osobę.
+Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
+Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
+
+CREATE TABLE Transakcje_log (
+    Nr INT IDENTITY(1,1) PRIMARY KEY, 
+    Data DATETIME, 
+    Uwagi NVARCHAR(255),
+    Uzytkownik NVARCHAR(50) 
+)
+
+GO
+
+CREATE TRIGGER TR_Transakcje_AFTER_UPDATE ON Transakcje
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @UserName NVARCHAR(50)
+    SET @UserName = USER_NAME()
+
+    INSERT INTO Transakcje_log (Data, Uwagi, Uzytkownik)
+    SELECT GETDATE(), 'Zaktualizowano tabelę Transakcje...', @UserName
+    FROM inserted
+END
+
 --------------------OK-END-----------------------------
