@@ -129,7 +129,9 @@ CREATE TABLE Pracownicy (
     Imię VARCHAR(50),
     Nazwisko VARCHAR(50),
     Stanowisko VARCHAR(50),
-    Data_zatrudnienia DATE
+    Data_zatrudnienia DATE,
+    ID_adresu INT,
+    FOREIGN KEY (ID_adresu) REFERENCES Adresy(ID_adresu)
 );
 
 
