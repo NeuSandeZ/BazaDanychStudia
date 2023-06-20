@@ -140,8 +140,7 @@ CREATE TABLE Serwis_log
 Nr INT IDENTITY(1,1) PRIMARY KEY, 
 Data DATETIME, 
 uwagi NVARCHAR(255)
-)
-GO
+);
 
 
 -- Tworzenie tabeli "Serwis”. Tutaj będziemy prowadzili ewidencję wszystkich napraw naszych aut.
