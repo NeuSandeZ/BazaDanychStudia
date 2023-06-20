@@ -100,7 +100,7 @@ CREATE TABLE Samochody (
 	FOREIGN KEY (ID_Pojazdu) REFERENCES Pojazdy (ID_Pojazdu)
 	);
 
-
+-- Tworzenie tabeli "Transakcje_log" na potrzeby przechowywania logow zainicjowanych wyzwalaczem po aktualizacji tabeli "Transakcje".
 CREATE TABLE Transakcje_log (
     Nr INT IDENTITY(1,1) PRIMARY KEY, 
     Data DATETIME, 
