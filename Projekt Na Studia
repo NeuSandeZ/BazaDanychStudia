@@ -701,6 +701,24 @@ GO
 
 	GO
 
+---FUNKCJA 3 
+---Funkcja wypisuje z tabeli Motocykle ,wybrana markę 
+
+CREATE FUNCTION WypiszMotocykleWedlugMarki
+(
+    @marka VARCHAR(40)
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT ID_motocykla, Marka, Model, Rok_produkcji, Przebieg, Cena
+    FROM Motocykle
+    WHERE Marka = @marka
+)
+GO
+
+SELECT * FROM dbo.WypiszMotocykleWedlugMarki('BMW');
 
 
 -- KONIEC FUNKCJI --
@@ -763,7 +781,20 @@ GO
 GO
 
 
+---PROCEDURA nr 3 
+---Procedura wypisuje 3 najnowsze roczniki aut z tabeli Samochody 
 
+
+CREATE PROCEDURE WypiszNajnowszeRoczniki
+AS
+BEGIN
+    SELECT TOP 3 Rok_produkcji, Marka, Model
+    FROM Samochody
+    ORDER BY Rok_produkcji DESC;
+END
+
+
+EXEC WypiszNajnowszeRoczniki;
 
 
 -- KONIEC PROCEDUR -----
@@ -837,6 +868,24 @@ BEGIN
     SELECT GETDATE(), 'Zaktualizowano tabelę Transakcje...', @UserName
     FROM inserted
 END
+
+
+---WYZWALACZ nr 3 
+---Wyzywalacz cofa usunięcie wiersza z tabeli Pojazdy 
+
+CREATE TRIGGER TR_cofnij_usuniecie_wiersza
+ON Pojazdy
+AFTER DELETE
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  INSERT INTO Pojazdy (ID_Pojazdu, Kategoria)
+  SELECT ID_Pojazdu, Kategoria
+  FROM deleted;
+END;
+
+Select * From Pojazdy
 
 --KONIEC WYZWALACZY ---------
 
