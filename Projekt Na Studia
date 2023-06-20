@@ -101,6 +101,12 @@ CREATE TABLE Samochody (
 	);
 
 
+CREATE TABLE Transakcje_log (
+    Nr INT IDENTITY(1,1) PRIMARY KEY, 
+    Data DATETIME, 
+    Uwagi NVARCHAR(255),
+    Uzytkownik NVARCHAR(50) 
+);
 
 -- Tworzenie tabeli "Transakcje" i dodanie dwoch ograniczen. Tutaj będziemy przechowywać wszystkie informacje na temat transakcji. Czyli kto, jakie auto i za ile kupił.
 CREATE TABLE Transakcje (
@@ -109,7 +115,9 @@ CREATE TABLE Transakcje (
     ID_samochodu INT,
     Data_transakcji DATE,
     Kwota DECIMAL(10, 2),
+    Nr_transakcji INT,
     FOREIGN KEY (ID_klienta) REFERENCES Klienci(ID_klienta),
+    FOREIGN KEY (Nr_transakcji) REFERENCES Transakcje_log(Nr),
     FOREIGN KEY (ID_samochodu) REFERENCES Samochody(ID_samochodu),
 	CONSTRAINT CHK_Data_transakcji CHECK (Data_transakcji <= GETDATE()),
     CONSTRAINT CHK_Kwota CHECK (Kwota >= 0)
@@ -835,15 +843,6 @@ GO
 -- WYZWALACZ 2  
 -- Ten wyzwalacz jest uruchamiany po każdej operacji UPDATE na tabeli Transakcje.
 -- Jego głównym celem jest rejestrowanie zmian w tabeli Transakcje poprzez dodawanie wpisów do tabeli Transakcje_log, która działa jako dziennik transakcji.
-
-CREATE TABLE Transakcje_log (
-    Nr INT IDENTITY(1,1) PRIMARY KEY, 
-    Data DATETIME, 
-    Uwagi NVARCHAR(255),
-    Uzytkownik NVARCHAR(50) 
-)
-
-GO
 
 CREATE TRIGGER TR_Transakcje_AFTER_UPDATE ON Transakcje
 AFTER UPDATE
