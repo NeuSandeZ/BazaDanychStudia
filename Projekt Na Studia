@@ -134,6 +134,15 @@ CREATE TABLE Dostawcy (
     Email VARCHAR(100)
 );
 
+-- Tworzenie tabeli "Serwis_log" na potrzeby przechowywania logow zainicjowanych wyzwalaczem po aktualizacji tabeli "Serwis".
+CREATE TABLE Serwis_log
+(
+Nr INT IDENTITY(1,1) PRIMARY KEY, 
+Data DATETIME, 
+uwagi NVARCHAR(255)
+)
+GO
+
 
 -- Tworzenie tabeli "Serwis”. Tutaj będziemy prowadzili ewidencję wszystkich napraw naszych aut.
 CREATE TABLE Serwis (
@@ -795,13 +804,6 @@ EXEC WypiszNajnowszeRoczniki;
 
 -- WYZWALACZ 1
 -- Wyzwalacz, ktory tworzy tabele Serwis_log i wniej zapisuje informacje o zmianie ceny serwisu. Zapis daty dokonania zmiany i adnotacja 'zmiana ceny serwisu'
-CREATE TABLE Serwis_log
-(
-Nr INT IDENTITY(1,1) PRIMARY KEY, 
-Data DATETIME, 
-uwagi NVARCHAR(255)
-)
-GO
 
 IF OBJECT_ID ('Trigger_Log_Ollo', 'TR') IS NOT NULL  
    DROP TRIGGER Trigger_Log_Ollo;  
