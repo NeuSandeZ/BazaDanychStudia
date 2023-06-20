@@ -636,17 +636,6 @@ WHERE
 	 GO
 	-- SELECT * FROM PracownikZNajwiekszymiDodatkami
 
-
-
-
-
-
-
-
-
-
-
-
 -- KONIEC VIEWS -- KONIEC WIDOKOW
 
 
@@ -674,7 +663,7 @@ RETURN
 END
 GO
 
---SELECT * FROM Follo1(19000, 25000)
+-- SELECT * FROM Follo1(19000, 25000)
 
 --SELECT * FROM Transakcje
 --SELECT * FROM Klienci
@@ -718,8 +707,8 @@ RETURN
 )
 GO
 
-SELECT * FROM dbo.WypiszMotocykleWedlugMarki('BMW');
-
+-- SELECT * FROM dbo.WypiszMotocykleWedlugMarki('BMW');
+GO
 
 -- KONIEC FUNKCJI --
 
@@ -732,7 +721,7 @@ SELECT * FROM dbo.WypiszMotocykleWedlugMarki('BMW');
 -- Procedura dajrabat obniża cenę samochodów w tabeli Samochody o 5% lub 10% w zależności od wartości parametru @przebieg. 
 --Jeśli wartość @przebieg przekracza 500 000, cena zostanie obniżona o 5%.
 -- Jeśli wartość @przebieg przekracza 1 000 000, cena zostanie obniżona o 10%.
-
+GO
 CREATE PROCEDURE dajrabat @przebieg INT
 AS
 BEGIN
@@ -781,10 +770,8 @@ GO
 GO
 
 
----PROCEDURA nr 3 
----Procedura wypisuje 3 najnowsze roczniki aut z tabeli Samochody 
-
-
+-- PROCEDURA nr 3 
+-- Procedura wypisuje 3 najnowsze roczniki aut z tabeli Samochody 
 CREATE PROCEDURE WypiszNajnowszeRoczniki
 AS
 BEGIN
@@ -872,7 +859,7 @@ END
 
 ---WYZWALACZ nr 3 
 ---Wyzywalacz cofa usunięcie wiersza z tabeli Pojazdy 
-
+GO
 CREATE TRIGGER TR_cofnij_usuniecie_wiersza
 ON Pojazdy
 AFTER DELETE
@@ -888,6 +875,5 @@ END;
 Select * From Pojazdy
 
 --KONIEC WYZWALACZY ---------
-
 
 
