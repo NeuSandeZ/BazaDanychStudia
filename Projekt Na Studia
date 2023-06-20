@@ -145,7 +145,7 @@ CREATE TABLE Serwis (
     Serwis_log_Nr INT, 
     ID_dostawcy INT,
     FOREIGN KEY (ID_samochodu) REFERENCES Samochody(ID_samochodu),
-    FOREIGN KEY(Serwis_log_Nr) REFERENCES Serwis(ID_serwisu),
+    FOREIGN KEY(Serwis_log_Nr) REFERENCES Serwis_log(ID_serwisu),
     FOREIGN KEY (ID_dostawcy) REFERENCES Dostawcy(ID_dostawcy)
 );
 
